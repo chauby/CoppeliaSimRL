@@ -16,7 +16,7 @@ class CartPoleSimModel():
         self.prismatic_joint_handle = None
         self.revolute_joint_handle = None
 
-    def initializeSimModel(self, client_ID, joint_angle=[0.0, 0.0]):
+    def initializeSimModel(self, client_ID):
         try:
             print ('Connected to remote API server')
             client_ID != -1

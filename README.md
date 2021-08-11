@@ -3,10 +3,11 @@
 The basic workspace for reinforcement learning with CoppeliaSim (VREP) simulation environments, including some demonstrated project for beginners.
 Some tutorials can be found at:
 
-- Zhihu:
-- WeChat:
+- Zhihu: https://zhuanlan.zhihu.com/p/398874515
+- WeChat: https://mp.weixin.qq.com/s/id7fw0eGBtLqEqr-zaKKPQ
 
 All the demos have been tested on Ubuntu 20.04, with Anaconda python environment.
+
 
 ---
 ## Environments setup
@@ -23,9 +24,9 @@ You have to install the following softwares and environments for this project, t
 ---
 ## Demo 1: Cart-pole control with the A2C (modified SAC) algorithm
 
-Step 1: run CoppeliaSim, import cart_pole.ttt;
-Step 2: run visdom in your terminal, open your browser, and visit link: localhost:8097;
-Step 3: run the script named 'demo_cart_pole_learning.py' in the path ./CartPoleRL/
+- Step 1: run CoppeliaSim, import cart_pole.ttt
+- Step 2: run visdom in your terminal, open your browser, and visit link: localhost:8097
+- Step 3: run the script named 'demo_cart_pole_learning.py' in the sub-path ./CartPoleRL/
 
 Then we have:
 
