@@ -1,5 +1,5 @@
 import sys
-sys.path.append('./VREP_RemoteAPIs')
+sys.path.append('../VREP_RemoteAPIs')
 import sim as vrep_sim
 
 # CartPole simulation model for VREP

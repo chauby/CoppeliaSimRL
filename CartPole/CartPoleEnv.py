@@ -5,7 +5,7 @@ from gym import spaces, logger
 import time
 
 import sys
-sys.path.append('./VREP_RemoteAPIs')
+sys.path.append('../VREP_RemoteAPIs')
 import sim as vrep_sim
 
 from CartPoleSimModel import CartPoleSimModel
@@ -14,8 +14,9 @@ class CartPoleEnv(gym.Env):
     """Custom Environment that follows gym interface"""
     metadata = {'render.modes': ['human']}
 
-    def __init__(self):
+    def __init__(self, action_type='descrete'):
         super(CartPoleEnv, self).__init__()
+        self.action_type = action_type
         self.push_force = 0
         self.q = [0.0, 0.0]
         self.q_last = [0.0, 0.0]
@@ -33,7 +34,13 @@ class CartPoleEnv(gym.Env):
             dtype=np.float32,
         )
 
-        self.action_space = spaces.Discrete(3)
+        if self.action_type == 'discrete':
+            self.action_space = spaces.Discrete(3)
+        elif self.action_type == 'continuous':
+            self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(1,), dtype=np.float32)
+        else:
+            assert 0, "The action type \'" + self.action_type + "\' can not be recognized"
+
         self.observation_space = spaces.Box(low=-high, high=high, dtype=np.float32)
 
         self.seed()
@@ -65,7 +72,8 @@ class CartPoleEnv(gym.Env):
         return [seed]
 
     def step(self, action):
-        assert self.action_space.contains(action), "%r (%s) invalid"%(action, type(action))
+        if self.action_type == 'discrete':
+            assert self.action_space.contains(action), "%r (%s) invalid"%(action, type(action))
 
         q = [0.0, 0.0]
         q[0] = self.cart_pole_sim_model.getJointPosition('prismatic_joint')
@@ -73,12 +81,17 @@ class CartPoleEnv(gym.Env):
         self.q_last = self.q
         self.q = q
 
-        if action == 0:
-            self.push_force = 0
-        elif action == 1:
-            self.push_force = 1.0
-        elif action == 2:
-            self.push_force = -1.0
+        if self.action_type == 'discrete':
+            if action == 0:
+                self.push_force = 0
+            elif action == 1:
+                self.push_force = 1.0
+            elif action == 2:
+                self.push_force = -1.0
+        elif self.action_type == 'continuous':
+            self.push_force = action*2.0 # The action is in [-1.0, 1.0], therefore the force is in [-2.0, 2.0]
+        else:
+            assert 0, "The action type \'" + self.action_type + "\' can not be recognized"
 
         # set action
         self.cart_pole_sim_model.setJointTorque(self.push_force)

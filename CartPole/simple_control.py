@@ -1,5 +1,5 @@
 import sys
-sys.path.append('./VREP_RemoteAPIs')
+sys.path.append('../VREP_RemoteAPIs')
 import sim as vrep_sim
 from numpy import random
 
@@ -33,8 +33,8 @@ for i in range(1000):
     q[1] = cart_pole_sim_model.getJointPosition('revolute_joint')
     print('q={}'.format(q))
 
-    action = random.uniform(-0.05, 0.05)
-    cart_pole_sim_model.setJointPosition('prismatic_joint', action)
+    action = random.uniform(-1.0, 1.0)
+    cart_pole_sim_model.setJointTorque(action)
 
     vrep_sim.simxSynchronousTrigger(client_ID)
     _, ping_time = vrep_sim.simxGetPingTime(client_ID) # make sure the last simulation step is finished

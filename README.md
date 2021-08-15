@@ -26,7 +26,7 @@ You have to install the following softwares and environments for this project, t
 
 - Step 1: run CoppeliaSim, import cart_pole.ttt
 - Step 2: run visdom in your terminal, open your browser, and visit link: localhost:8097
-- Step 3: run the script named 'demo_cart_pole_learning.py' in the sub-path ./CartPoleRL/
+- Step 3: run the script named 'demo_cart_pole_learning.py' in the sub-path ./examples
 
 Then we have:
 

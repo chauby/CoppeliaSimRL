@@ -5,14 +5,17 @@ from stable_baselines3 import A2C
 import os
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.callbacks import CallbackList
-from callbackFunctions import VisdomCallback
 from stable_baselines3.common.callbacks import EvalCallback
+
+import sys
+sys.path.append("../utils")
+from callbackFunctions import VisdomCallback
 
 # ---------------- create environment
 env = gym.make('CartPole-v1')
 
 # ---------------- callback functions
-log_dir = "./saved_models/tmp"
+log_dir = "../CartPole/saved_models/tmp"
 os.makedirs(log_dir, exist_ok=True)
 env = Monitor(env, log_dir)
 
@@ -32,7 +35,7 @@ del model
 
 # ---------------- prediction
 print('Prediction')
-model = A2C.load("./saved_models/tmp/best_model", env=env)
+model = A2C.load("../CartPole/saved_models/tmp/best_model", env=env)
 
 
 observation = env.reset()
